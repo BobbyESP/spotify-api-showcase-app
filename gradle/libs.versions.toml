@@ -1,6 +1,7 @@
 [versions]
 agp = "8.3.0-alpha14"
 kotlin = "1.9.20"
+appcompat = "1.6.1"
 ksp = "1.9.20-1.0.14"
 coreKtx = "1.12.0"
 junit = "4.13.2"
@@ -66,6 +67,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-material3-windowsizeclass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "material3WindowSizeClass" }
+core-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 #Serialization
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serializationJson" }
@@ -134,7 +136,7 @@ kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 [bundles]
 accompanist = ["accompanist-navigation-animation", "accompanist-permissions", "accompanist-systemuicontroller", "accompanist-webview", "accompanist-pager-layouts", "accompanist-pager-indicators", "accompanist-flowlayout"]
 ktor = ["ktor-core", "ktor-serialization", "ktor-logging", "ktor-contentnegotiation", "ktor-client-mock", "ktor-android"]
-compose = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx", "androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-material3"]
+compose = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx", "androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-material3", "core-appcompat"]
 paging = ["paging-runtime", "paging-compose"]
 hilt = ["compose-hilt-navigation", "hilt-android"]
 hilt-ksp = ["hilt-compiler", "hilt-ext-compiler"]

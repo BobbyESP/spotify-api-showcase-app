@@ -20,7 +20,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        manifestPlaceholders["redirectHostName"] = "showcaseapp"
+        manifestPlaceholders["redirectSchemeName"] = "placeholder"
     }
+
 
     buildTypes {
         release {
@@ -28,6 +31,27 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+            buildConfigField(
+                "String", "CLIENT_ID", "\"${project.properties["CLIENT_ID"]}\""
+            )
+            buildConfigField(
+                "String", "CLIENT_SECRET", "\"${project.properties["CLIENT_SECRET"]}\""
+            )
+            buildConfigField(
+                "String", "SPOTIFY_REDIRECT_URI_PKCE", "\"showcaseapp://spotify-pkce\""
+            )
+        }
+        debug {
+            isMinifyEnabled = false
+            buildConfigField(
+                "String", "CLIENT_ID", "\"${project.properties["CLIENT_ID"]}\""
+            )
+            buildConfigField(
+                "String", "CLIENT_SECRET", "\"${project.properties["CLIENT_SECRET"]}\""
+            )
+            buildConfigField(
+                "String", "SPOTIFY_REDIRECT_URI_PKCE", "\"showcaseapp://spotify-pkce\""
             )
         }
     }
@@ -40,6 +64,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.4"

@@ -3,17 +3,13 @@ package com.bobbyesp.spotifyapishowcaseapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import com.bobbyesp.spotifyapishowcaseapp.ui.Navigation
+import com.bobbyesp.spotifyapishowcaseapp.ui.common.AppLocalSettingsProvider
+import com.bobbyesp.spotifyapishowcaseapp.ui.common.LocalDarkTheme
 import com.bobbyesp.spotifyapishowcaseapp.ui.theme.SpotifyAPIShowcaseAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,12 +25,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val windowSizeClass = calculateWindowSizeClass(this)
-            SpotifyAPIShowcaseAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+            AppLocalSettingsProvider(windowWidthSize = windowSizeClass.widthSizeClass) {
+                SpotifyAPIShowcaseAppTheme(
+                    darkTheme = LocalDarkTheme.current.isDarkTheme(),
+                    isHighContrastModeEnabled = LocalDarkTheme.current.isHighContrastModeEnabled,
                 ) {
+                    Navigation()
                 }
             }
         }
