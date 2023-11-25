@@ -33,6 +33,7 @@ import com.bobbyesp.spotifyapishowcaseapp.ui.pages.login.LoginPage
 import com.bobbyesp.spotifyapishowcaseapp.ui.pages.login.LoginPageViewModel
 import com.bobbyesp.spotifyapishowcaseapp.ui.pages.search.SearchPage
 import com.bobbyesp.spotifyapishowcaseapp.ui.pages.search.SearchViewModel
+import com.bobbyesp.spotifyapishowcaseapp.ui.pages.utilities.UtilitiesPage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -133,7 +134,7 @@ fun Navigation() {
                             animatedComposable(
                                 route = Route.Utilities.route
                             ) {
-                                Text(text = "TODO")
+                                UtilitiesPage()
                             }
                         }
                     }

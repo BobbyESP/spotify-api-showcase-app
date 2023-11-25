@@ -64,7 +64,6 @@ fun SearchPage(
     viewModel: SearchViewModel,
 ) {
     val viewState = viewModel.pageViewState.collectAsStateWithLifecycle().value
-    val navController = LocalNavController.current
 
     val (query, onValueChange) = rememberSaveable(key = "searchQuery_searchPage") {
         mutableStateOf("")
@@ -309,7 +308,6 @@ fun <T : Any> ResultsList(
                 }
             }
         }
-        //TODO: while loading, show shimmer but not create items
         paginatedItems?.let {
             items(
                 count = it.itemCount,
