@@ -1,8 +1,11 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -24,6 +27,10 @@ android {
         manifestPlaceholders["redirectSchemeName"] = "placeholder"
     }
 
+    val localProperties = Properties().apply {
+        load(project.rootDir.resolve("local.properties").inputStream())
+    }
+
 
     buildTypes {
         release {
@@ -33,10 +40,10 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField(
-                "String", "CLIENT_ID", "\"${project.properties["CLIENT_ID"]}\""
+                "String", "CLIENT_ID", "\"${localProperties.getProperty("CLIENT_ID")}\""
             )
             buildConfigField(
-                "String", "CLIENT_SECRET", "\"${project.properties["CLIENT_SECRET"]}\""
+                "String", "CLIENT_SECRET", "\"${localProperties.getProperty("CLIENT_SECRET")}\""
             )
             buildConfigField(
                 "String", "SPOTIFY_REDIRECT_URI_PKCE", "\"showcaseapp://spotify-pkce\""
@@ -45,10 +52,10 @@ android {
         debug {
             isMinifyEnabled = false
             buildConfigField(
-                "String", "CLIENT_ID", "\"${project.properties["CLIENT_ID"]}\""
+                "String", "CLIENT_ID", "\"${localProperties.getProperty("CLIENT_ID")}\""
             )
             buildConfigField(
-                "String", "CLIENT_SECRET", "\"${project.properties["CLIENT_SECRET"]}\""
+                "String", "CLIENT_SECRET", "\"${localProperties.getProperty("CLIENT_SECRET")}\""
             )
             buildConfigField(
                 "String", "SPOTIFY_REDIRECT_URI_PKCE", "\"showcaseapp://spotify-pkce\""
@@ -91,7 +98,8 @@ dependencies {
     //DI (Dependency Injection - Hilt)
     implementation(libs.bundles.hilt)
     implementation(libs.androidx.material3.windowsizeclass)
-    ksp(libs.bundles.hilt.ksp)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    kapt(libs.bundles.hilt.ksp) //NOT KSP Because of bugs
 
     //Coroutines
     implementation(libs.bundles.coroutines)

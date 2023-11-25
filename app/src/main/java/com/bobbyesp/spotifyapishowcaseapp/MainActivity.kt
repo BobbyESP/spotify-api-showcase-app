@@ -11,7 +11,9 @@ import com.bobbyesp.spotifyapishowcaseapp.ui.Navigation
 import com.bobbyesp.spotifyapishowcaseapp.ui.common.AppLocalSettingsProvider
 import com.bobbyesp.spotifyapishowcaseapp.ui.common.LocalDarkTheme
 import com.bobbyesp.spotifyapishowcaseapp.ui.theme.SpotifyAPIShowcaseAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {

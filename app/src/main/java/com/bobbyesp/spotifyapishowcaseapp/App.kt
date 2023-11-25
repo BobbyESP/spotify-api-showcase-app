@@ -10,11 +10,13 @@ import android.net.ConnectivityManager
 import android.os.Build
 import androidx.core.content.getSystemService
 import com.tencent.mmkv.MMKV
+import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import javax.inject.Inject
 
+@HiltAndroidApp
 class App: Application() {
 
     @Inject

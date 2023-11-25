@@ -3,4 +3,20 @@
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="follow_system">Follow system</string>
+    <string name="login_with_spotify">Login with Spotify</string>
+    <string name="app_description">This app is made for showcasing the big potential of the spotify-web-api-kotlin library</string>
+    <string name="login_page_title">Welcome to the login page!</string>
+    <string name="login_with_pkce">Login by using Pkce authentication</string>
+    <string name="login_with_pkce_description">PKCE (Proof Key for Code Exchange) is a security measure in OAuth 2.0 used by Spotify for user authentication.</string>
+    <string name="tracks">Tracks</string>
+    <string name="albums">Albums</string>
+    <string name="artists">Artists</string>
+    <string name="playlists">Playlists</string>
+    <string name="track">Track</string>
+    <string name="album">Album</string>
+    <string name="artist">Artist</string>
+    <string name="playlist">Playlist</string>
+    <string name="search_for_anything">Search for anything you want!</string>
+    <string name="idle">Idle</string>
+    <string name="results">results</string>
 </resources>
