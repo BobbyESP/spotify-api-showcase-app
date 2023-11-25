@@ -86,11 +86,14 @@ fun Navigation() {
                 null -> {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
+
                 else -> {
                     NavHost(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(bottom = 75.dp),
+                            .apply {
+                                if (isLoggedIn == true) this.padding(bottom = 72.dp)
+                            },
                         navController = navController,
                         route = Route.MainHost.route,
                         startDestination = routesIfLogged,
@@ -137,7 +140,7 @@ fun Navigation() {
                 }
             }
         }
-        if (currentRoute != Route.Login.route && isLoggedIn != null) {
+        if (currentRootRoute.value != Route.LoginNavigator.route && isLoggedIn == true) {
             NavigationBar(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
