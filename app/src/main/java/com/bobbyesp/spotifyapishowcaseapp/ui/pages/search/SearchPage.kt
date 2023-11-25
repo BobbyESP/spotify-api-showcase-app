@@ -108,7 +108,6 @@ fun SearchPage(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
     ) {
         QueryTextBox(
             modifier = Modifier

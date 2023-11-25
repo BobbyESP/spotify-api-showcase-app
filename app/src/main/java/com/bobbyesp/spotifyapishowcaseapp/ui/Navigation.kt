@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -80,110 +81,117 @@ fun Navigation() {
             .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
-        Crossfade(
-            targetState = isLoggedIn, label = "Crossfade between login verification and navigator"
-        ) {
-            when (it) {
-                null -> {
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-                }
-
-                else -> {
-                    NavHost(
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            bottomBar = {
+                if (currentRootRoute.value != Route.LoginNavigator.route && isLoggedIn == true) {
+                    NavigationBar(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .apply {
-                                if (isLoggedIn == true) this.padding(bottom = 72.dp)
-                            },
-                        navController = navController,
-                        route = Route.MainHost.route,
-                        startDestination = routesIfLogged,
+                            .align(Alignment.BottomCenter)
+                            .height(90.dp)
                     ) {
-                        navigation(
-                            route = Route.LoginNavigator.route,
-                            startDestination = Route.Login.route,
-                        ) {
-                            animatedComposable(Route.Login.route) {
-                                LoginPage(loginViewModel)
-                            }
-                        }
+                        routesToShowInBottomBar.forEach { route ->
+                            val isSelected = currentRootRoute.value == route.route
 
-                        navigation(
-                            route = Route.HomeNavigator.route,
-                            startDestination = Route.Home.route,
-                        ) {
-                            animatedComposable(Route.Home.route) {
-                                //MainPage()
+                            val onClick = remember(isSelected, navController, route.route) {
+                                {
+                                    if (!isSelected) {
+                                        navController.navigate(route.route) {
+                                            popUpTo(Route.MainHost.route) {
+                                                saveState = true
+                                            }
+                                            launchSingleTop = true
+                                            restoreState = true
+                                        }
+                                    }
+                                }
                             }
-                        }
-
-                        navigation(
-                            route = Route.SearchNavigator.route,
-                            startDestination = Route.Search.route
-                        ) {
-                            animatedComposable(Route.Search.route) {
-                                val viewModel = hiltViewModel<SearchViewModel>()
-                                SearchPage(viewModel = viewModel)
-                            }
-                        }
-
-                        navigation(
-                            route = Route.UtilitiesNavigator.route,
-                            startDestination = Route.Utilities.route
-                        ) {
-                            animatedComposable(
-                                route = Route.Utilities.route
-                            ) {
-                                UtilitiesPage()
-                            }
+                            NavigationBarItem(
+                                modifier = Modifier.animateContentSize(),
+                                selected = isSelected,
+                                onClick = onClick,
+                                icon = {
+                                    Icon(
+                                        imageVector = route.icon ?: return@NavigationBarItem,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onSurface
+                                    )
+                                },
+                                label = {
+                                    Text(
+                                        text = route.title ?: "",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                    )
+                                },
+                                alwaysShowLabel = false,
+                                enabled = true
+                            )
                         }
                     }
                 }
             }
-        }
-        if (currentRootRoute.value != Route.LoginNavigator.route && isLoggedIn == true) {
-            NavigationBar(
+        ) {
+            Crossfade(
                 modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .height(90.dp)
+                    .fillMaxSize()
+                    .padding(it),
+                targetState = isLoggedIn,
+                label = "Crossfade between login verification and navigator"
             ) {
-                routesToShowInBottomBar.forEach { route ->
-                    val isSelected = currentRootRoute.value == route.route
+                when (it) {
+                    null -> {
+                        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                    }
 
-                    val onClick = remember(isSelected, navController, route.route) {
-                        {
-                            if (!isSelected) {
-                                navController.navigate(route.route) {
-                                    popUpTo(Route.MainHost.route) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
+                    else -> {
+                        NavHost(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            navController = navController,
+                            route = Route.MainHost.route,
+                            startDestination = routesIfLogged,
+                        ) {
+                            navigation(
+                                route = Route.LoginNavigator.route,
+                                startDestination = Route.Login.route,
+                            ) {
+                                animatedComposable(Route.Login.route) {
+                                    LoginPage(loginViewModel)
+                                }
+                            }
+
+                            navigation(
+                                route = Route.HomeNavigator.route,
+                                startDestination = Route.Home.route,
+                            ) {
+                                animatedComposable(Route.Home.route) {
+                                    //MainPage()
+                                }
+                            }
+
+                            navigation(
+                                route = Route.SearchNavigator.route,
+                                startDestination = Route.Search.route
+                            ) {
+                                animatedComposable(Route.Search.route) {
+                                    val viewModel = hiltViewModel<SearchViewModel>()
+                                    SearchPage(viewModel = viewModel)
+                                }
+                            }
+
+                            navigation(
+                                route = Route.UtilitiesNavigator.route,
+                                startDestination = Route.Utilities.route
+                            ) {
+                                animatedComposable(
+                                    route = Route.Utilities.route
+                                ) {
+                                    UtilitiesPage()
                                 }
                             }
                         }
                     }
-                    NavigationBarItem(
-                        modifier = Modifier.animateContentSize(),
-                        selected = isSelected,
-                        onClick = onClick,
-                        icon = {
-                            Icon(
-                                imageVector = route.icon ?: return@NavigationBarItem,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurface
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = route.title ?: "",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSurface,
-                            )
-                        },
-                        alwaysShowLabel = false,
-                        enabled = true
-                    )
                 }
             }
         }
