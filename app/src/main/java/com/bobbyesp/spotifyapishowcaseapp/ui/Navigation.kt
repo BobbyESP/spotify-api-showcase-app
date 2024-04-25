@@ -131,15 +131,15 @@ fun Navigation() {
                     }
                 }
             }
-        ) {
+        ) { paddingValues ->
             Crossfade(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(it),
+                    .padding(paddingValues),
                 targetState = isLoggedIn,
                 label = "Crossfade between login verification and navigator"
-            ) {
-                when (it) {
+            ) { state ->
+                when (state) {
                     null -> {
                         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                     }

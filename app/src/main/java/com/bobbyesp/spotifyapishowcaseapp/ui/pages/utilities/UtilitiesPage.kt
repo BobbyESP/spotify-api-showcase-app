@@ -19,6 +19,7 @@ fun UtilitiesPage() {
     ) {
         item {
             Text(
+                modifier = Modifier,
                 text = stringResource(R.string.utilities_page),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold

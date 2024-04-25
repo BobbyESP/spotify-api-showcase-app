@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.hilt)
     kotlin("kapt")
+    alias(libs.plugins.kotlin.ksp)
 }
 
 android {
@@ -30,7 +31,6 @@ android {
     val localProperties = Properties().apply {
         load(project.rootDir.resolve("local.properties").inputStream())
     }
-
 
     buildTypes {
         release {
@@ -85,7 +85,7 @@ android {
 
 dependencies {
     //UI
-    implementation(platform(libs.androidx.compose.bom))
+    api(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
 
